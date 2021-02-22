@@ -1,5 +1,6 @@
 <?php 
 
+namespace DarioMinds\Packages\Vehicle;
 /**
  * Class Vin
  */
@@ -61,7 +62,7 @@ class Vin {
             return ($checkdigit==$this->expected_check_digit);
         }
 
-        public function displayChecksumSummary(){
+        public function displayChecksumSummary(){ 
             $product = array();
             $value = array();
             $returnHtml="";
