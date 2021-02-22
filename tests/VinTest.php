@@ -22,7 +22,7 @@ class VinTest extends TestCase
     /**
      * @dataProvider validVinProvider
      */
-    public function testValidVin($valid)
+    public function testValidVinChecksum($valid)
     {
         $this->vin=$valid;
         
@@ -37,5 +37,34 @@ class VinTest extends TestCase
             ['2T3F1RFV6LC094658'],
         ];
     }
+
+	/**
+	 * @dataProvider invalidVinProvider
+	 */	
+	public function testInvalidVinProvider($invalid)
+	{
+		$this->expectException(\InvalidArgumentException::class);
+
+		$this->vin = $invalid;
+
+        $Vin = $this->getVinInstance();
+	}
+
+	/**
+	 * @method invalidVinProvider called by testInvalidVinProvider
+	 * 
+	 * @return array values for possibel invalid VINs
+	 */
+	public function invalidVinProvider()
+	{
+		return [
+			['I2233445566778899'],	// with I character
+			['O2233445566778899'],	// with O character
+			['O223344556677889'],	// 16 characters only
+			['O223344556677889LONGVIN'], // morethan 17 characters
+			['AB-223344556677889'],	// with special character -
+		];
+	}
+
 
 }
